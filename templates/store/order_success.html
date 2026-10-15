@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Placed{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cart-page">
+  <div class="empty-cart">
+    <span class="modal-icon">🎉</span>
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you {{ order.full_name }}. Your order <strong>#{{ order.id }}</strong> has been received and is being processed.</p>
+    <a href="{% url 'store:products' %}" class="shop-now-btn">Continue Shopping</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  localStorage.removeItem('dz_cart');
+  if (typeof updateBadge === 'function') updateBadge();
+</script>
+
+{% endblock %}
+

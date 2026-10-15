@@ -1,0 +1,26 @@
+<div class="product-card">
+  <div class="product-img-container">
+    {% if product.photo %}
+      <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="product-img">
+    {% else %}
+      <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-img">
+    {% endif %}
+  </div>
+  <div class="product-info">
+    <span class="product-category">{{ product.category.name }}</span>
+    <h3 class="product-title">{{ product.name }}</h3>
+    <div class="product-price">{{ product.price }} DZD</div>
+    <div class="product-actions">
+      <a href="{% url 'store:product_detail' product.id %}" class="details-btn">View</a>
+      {% if product.is_available %}
+        <button class="add-btn"
+                data-id="{{ product.id }}"
+                data-name="{{ product.name }}"
+                data-price="{{ product.price }}"
+                data-image="{% if product.photo %}{{ product.photo.url }}{% else %}{{ product.image_url }}{% endif %}">Add to Cart</button>
+      {% else %}
+        <button class="add-btn" disabled>Out of Stock</button>
+      {% endif %}
+    </div>
+  </div>
+</div>

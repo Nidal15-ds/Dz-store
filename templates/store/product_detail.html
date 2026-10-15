@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="details-page">
+  <a href="{% url 'store:products' %}" class="back-link">&larr; Back to Products</a>
+
+  <div class="details-container">
+    <div class="details-img-wrapper">
+      {% if product.photo %}
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="details-img">
+      {% else %}
+        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="details-img">
+      {% endif %}
+    </div>
+
+    <div class="details-content">
+      <span class="details-category">{{ product.category.name }}</span>
+      <h1 class="details-title">{{ product.name }}</h1>
+      <div class="details-rating">⭐ {{ product.rating }} / 5.0 Rating</div>
+      <div class="details-price">{{ product.price }} DZD</div>
+      <p class="details-desc">{{ product.description }}</p>
+
+      {% if product.is_available %}
+        <button class="details-add-btn add-btn"
+                data-id="{{ product.id }}"
+                data-name="{{ product.name }}"
+                data-price="{{ product.price }}"
+                data-image="{% if product.photo %}{{ product.photo.url }}{% else %}{{ product.image_url }}{% endif %}">Add to Cart</button>
+      {% else %}
+        <button class="details-add-btn" disabled>Out of Stock</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

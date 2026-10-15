@@ -1,0 +1,67 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="checkout-page">
+  <h1 class="checkout-header">Checkout</h1>
+
+  <div class="checkout-layout">
+    <form method="post" class="checkout-form" id="checkout-form">
+      {% csrf_token %}
+      <div id="checkout-hidden"></div>
+
+      <h2>Delivery Information</h2>
+      <div class="form-group">
+        <label for="full_name">Full Name</label>
+        <input type="text" id="full_name" name="full_name" placeholder="e.g. Nidal Dous" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="0550123456" required>
+        </div>
+        <div class="form-group">
+          <label for="wilaya">Wilaya</label>
+          <select id="wilaya" name="wilaya" required>
+            <option value="">Select a wilaya</option>
+            {% for w in wilayas %}<option value="{{ w.id }}">{{ w.code }} - {{ w.name }}</option>{% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="commune">Baladia (Commune)</label>
+        <input type="text" id="commune" name="commune" placeholder="e.g. Bab El Oued" required>
+      </div>
+
+      <div class="form-group">
+        <label>Shipping Method</label>
+        <label class="radio-option"><input type="radio" name="shipping_method" value="home" checked> To Home</label>
+        <label class="radio-option"><input type="radio" name="shipping_method" value="stopdesk"> To Stop Desk</label>
+      </div>
+
+      <button type="submit" class="checkout-submit">Confirm Order</button>
+    </form>
+
+    <div class="checkout-summary">
+      <h2>Order Summary</h2>
+      <div id="checkout-items"></div>
+      <div class="summary-total"><span>Total</span><span id="checkout-total">0 DZD</span></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/checkout.js' %}"></script>
+
+{% endblock %}

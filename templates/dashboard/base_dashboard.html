@@ -1,0 +1,34 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Admin{% endblock %} — DZ Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}?v=2">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-shell">
+    {% include 'dashboard/partials/sidebar.html' %}
+
+    <div class="dashboard-main">
+      <header class="dashboard-topbar">
+        <button class="dashboard-menu-btn" id="dashboard-menu-btn" aria-label="Toggle menu">☰</button>
+        <h1 class="dashboard-title">{% block page_title %}Dashboard{% endblock %}</h1>
+        <div class="dashboard-user">{{ request.user.username }}</div>
+      </header>
+
+      <div class="dashboard-content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'js/dashboard.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

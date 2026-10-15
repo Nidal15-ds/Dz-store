@@ -1,0 +1,298 @@
+.suggestion-section {
+  padding: 4rem 2rem;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.suggestion-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .suggestion-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 600px) {
+  /* Give the whole section the available screen width */
+  .suggestion-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 2rem 0.95rem;
+    box-sizing: border-box;
+  }
+
+  /* Remove the width restriction on the card */
+  .suggestion-section .suggestion-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  /* Both panels must fill the card */
+  .suggestion-section .suggestion-info-side,
+  .suggestion-section .suggestion-form-side {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    box-sizing: border-box;
+  }
+
+  /* Reduce excessive text wrapping in the dark panel */
+  .suggestion-section .suggestion-info-side {
+    padding: 1.6rem;
+  }
+
+  .suggestion-section .suggestion-info-side h2 {
+    max-width: none;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .suggestion-section .suggestion-info-side p {
+    max-width: none;
+  }
+
+  /* Make the form and its controls fill the panel */
+  .suggestion-section .suggestion-form-side {
+    padding: 1.5rem;
+  }
+
+  .suggestion-section .suggestion-form,
+  .suggestion-section .form-group,
+  .suggestion-section .input-with-icon {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .suggestion-section .form-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .suggestion-section input,
+  .suggestion-section textarea,
+  .suggestion-section .submit-btn {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Do not let the general section wrapper squeeze this card */
+  .suggestion-section .section-container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+
+/*
+@media (max-width: 600px) {
+  .suggestion-section {
+    padding: 2.5rem 0;
+    width: 100%;
+  }
+
+  .suggestion-container {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    border-radius: 18px;
+  }
+
+  .suggestion-form-side {
+    padding: 1.2rem 1rem 1.5rem;
+  }
+
+  .suggestion-info-side {
+    padding: 1.5rem 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .section-container {
+    padding: 0 1.75rem;
+  }
+}
+*/
+/* Left Side Styling */
+.suggestion-info-side {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.suggestion-badge {
+  display: inline-block;
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  width: fit-content;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.suggestion-info-side h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.suggestion-info-side p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.suggestion-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.feature-item svg {
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+/* Right Side Form Styling */
+.suggestion-form-side {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.success-alert {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 0.85rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.suggestion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form-group label {
+
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+
+}
+
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon svg {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+}
+
+.input-with-icon input {
+  padding-left: 2.3rem !important;
+}
+
+.suggestion-form input,
+.suggestion-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #0f172a;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  resize: none;
+}
+
+.suggestion-form input:focus,
+.suggestion-form textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.submit-btn {
+  background-color: #0f172a;
+  color: #ffffff;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+  background-color: #1e293b;
+}

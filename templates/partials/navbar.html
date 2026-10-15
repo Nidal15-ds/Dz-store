@@ -1,0 +1,27 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="{% url 'store:home' %}" class="navbar-logo">DZ Store<span class="logo-dot">.</span></a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <div class="navbar-menu" id="navbar-menu">
+      <ul class="nav-links">
+        <li><a href="{% url 'store:home' %}">Home</a></li>
+        <li><a href="{% url 'store:products' %}">Products</a></li>
+        <li><a href="{% url 'store:home' %}#contact">Contact Us</a></li>
+      </ul>
+
+      <a href="{% url 'store:cart' %}" class="cart-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H19m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        <span>Cart</span>
+        <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+      </a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,18 @@
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">DZ Store<span>.</span></div>
+
+  <nav class="sidebar-nav">
+    <a href="{% url 'dashboard:home' %}" class="sidebar-link {% if active == 'dashboard' %}active{% endif %}">Dashboard</a>
+    <a href="{% url 'dashboard:products' %}" class="sidebar-link {% if active == 'products' %}active{% endif %}">Products</a>
+    <a href="{% url 'dashboard:orders' %}" class="sidebar-link {% if active == 'orders' %}active{% endif %}">Orders</a>
+    <a href="{% url 'dashboard:report' %}" class="sidebar-link {% if active == 'report' %}active{% endif %}">Report</a>
+    <a href="{% url 'dashboard:settings' %}" class="sidebar-link {% if active == 'settings' %}active{% endif %}">Settings</a>
+  </nav>
+
+  <form method="post" action="{% url 'dashboard:logout' %}" class="sidebar-logout">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+
+</aside>

@@ -1,0 +1,58 @@
+
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% block title %}Order #{{ order.pk }}{% endblock %}
+{% block page_title %}Order #{{ order.pk }}{% endblock %}
+
+{% block content %}
+<div class="order-detail-grid">
+  <div class="dash-card">
+    <h2>Customer</h2>
+    <p><strong>Name:</strong> {{ order.full_name }}</p>
+    <p><strong>Phone:</strong> {{ order.phone }}</p>
+    <p><strong>Wilaya:</strong> {{ order.wilaya.name }}</p>
+    <p><strong>Commune / Baladia:</strong> {{ order.commune }}</p>
+    <p><strong>Shipping:</strong> {{ order.get_shipping_method_display }}</p>
+    <p><strong>Ordered:</strong> {{ order.created_at|date:"Y-m-d H:i" }}</p>
+  </div>
+
+  <div class="dash-card">
+    <h2>Status</h2>
+    <form method="post" class="status-form">
+      {% csrf_token %}
+      <select name="status" class="filter-select">
+        {% for value, label in statuses %}
+          <option value="{{ value }}" {% if value == order.status %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn-primary">Update</button>
+    </form>
+    <p class="muted" style="margin-top:1rem;">Revenue is counted only when status is <strong>Confirmed</strong>.</p>
+  </div>
+</div>
+
+<div class="dash-card">
+  <h2>Items</h2>
+  <div class="table-wrapper">
+    <table class="dash-table">
+      <thead>
+        <tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr>
+      </thead>
+      <tbody>
+        {% for item in order.items.all %}
+        <tr>
+          <td>{{ item.product_name }}</td>
+          <td>{{ item.unit_price }} DZD</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.line_total }} DZD</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="summary-total">
+    <span>Total</span>
+    <span>{{ order.total }} DZD</span>
+  </div>
+</div>
+{% endblock %}

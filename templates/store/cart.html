@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cart-page">
+  <div id="cart-empty" class="empty-cart" style="display:none;">
+    <h2>Your cart is empty</h2>
+    <p>Looks like you haven't added any products to your cart yet.</p>
+    <a href="{% url 'store:products' %}" class="shop-now-btn">Start Shopping</a>
+  </div>
+
+  <div id="cart-full" style="display:none;">
+    <h1 class="cart-header">Shopping Cart</h1>
+    <div class="cart-layout">
+      <div class="cart-items-list" id="cart-items"></div>
+      <div class="cart-summary">
+        <h2 class="summary-title">Order Summary</h2>
+        <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">0 DZD</span></div>
+        <div class="summary-row"><span>Shipping</span><span>Free</span></div>
+        <div class="summary-total"><span>Total</span><span id="cart-total">0 DZD</span></div>
+        <a href="{% url 'store:checkout' %}" class="checkout-btn" style="text-align:center;">Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/cart_page.js' %}"></script>
+
+{% endblock %}

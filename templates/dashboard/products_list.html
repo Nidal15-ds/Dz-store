@@ -1,0 +1,68 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% block title %}Products{% endblock %}
+{% block page_title %}Products{% endblock %}
+
+{% block content %}
+<div class="dash-toolbar">
+  <a href="{% url 'dashboard:product_add' %}" class="btn-primary">+ Add Product</a>
+  <span class="muted">{{ products|length }} product{{ products|length|pluralize }}</span>
+</div>
+
+<div class="product-filter-row">
+  <a href="{% url 'dashboard:products' %}" class="product-filter-chip {% if not selected_category %}active{% endif %}">All ({{ products|length }})</a>
+  {% for category in categories %}
+    <a href="{% url 'dashboard:products' %}?category={{ category.slug }}" class="product-filter-chip {% if selected_category == category.slug %}active{% endif %}">{{ category.name }} ({{ category.product_count }})</a>
+  {% endfor %}
+</div>
+
+{% regroup products by category as category_list %}
+
+{% for group in category_list %}
+<section class="pgroup">
+  <header class="pgroup-head">
+    <span class="pgroup-bar"></span>
+    <h2 class="pgroup-title">{{ group.grouper.name }}</h2>
+    <span class="pgroup-count">{{ group.list|length }}</span>
+  </header>
+
+  <div class="pgrid">
+    {% for product in group.list %}
+    <article class="pcard">
+      <div class="pcard-media">
+        {% if product.photo %}
+          <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+        {% else %}
+          <img src="{{ product.image_url }}" alt="{{ product.name }}">
+        {% endif %}
+        {% if product.stock == 0 %}
+          <span class="ppill ppill-out">Out of stock</span>
+        {% elif product.is_pack %}
+          <span class="ppill ppill-pack">Bundle</span>
+        {% endif %}
+      </div>
+
+      <div class="pcard-body">
+        <h3 class="pcard-name">{{ product.name }}</h3>
+        <div class="pcard-meta">
+          <span class="pcard-rating">★ {{ product.rating }}</span>
+          <span class="pcard-stock">Stock {{ product.stock }}</span>
+        </div>
+        <div class="pcard-price">{{ product.price }} <small>DZD</small></div>
+      </div>
+
+      <div class="pcard-actions">
+        <a href="{% url 'dashboard:product_edit' product.pk %}" class="pcard-btn pcard-edit">Edit</a>
+        <form method="post" action="{% url 'dashboard:product_delete' product.pk %}" onsubmit="return confirm('Delete this product?');">
+          {% csrf_token %}
+          <button type="submit" class="pcard-btn pcard-del">Delete</button>
+        </form>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% empty %}
+<p class="table-empty">No products yet.</p>
+{% endfor %}
+{% endblock %}

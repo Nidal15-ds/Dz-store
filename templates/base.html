@@ -1,0 +1,28 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}DZ Store{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <div class="app-container">
+    {% include 'partials/navbar.html' %}
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    {% include 'partials/footer.html' %}
+  </div>
+  <script src="{% static 'js/cart.js' %}"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

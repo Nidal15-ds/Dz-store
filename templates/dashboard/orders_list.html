@@ -1,0 +1,82 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% block title %}Orders{% endblock %}
+{% block page_title %}Orders{% endblock %}
+
+{% block content %}
+<div class="dash-toolbar orders-toolbar">
+  <div class="orders-search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input type="search" name="q" value="{{ q }}" form="orders-filter-form" placeholder="Search by name or phone..." aria-label="Search by name or phone" id="orders-search-input">
+  </div>
+
+  <form method="get" id="orders-filter-form" class="orders-filter-form">
+    <label for="status">Status</label>
+    <select name="status" id="status" class="filter-select" onchange="this.form.submit()">
+      <option value="">All</option>
+      {% for value, label in statuses %}
+        <option value="{{ value }}" {% if value == selected_status %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </form>
+</div>
+
+<div class="table-wrapper">
+  <table class="dash-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Customer</th>
+        <th>Phone</th>
+        <th>Wilaya</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order.pk }}</td>
+        <td>{{ order.full_name }}</td>
+        <td>{{ order.phone }}</td>
+        <td>{{ order.wilaya.name }}</td>
+        <td>{{ order.total }} DZD</td>
+        <td><span class="badge badge-{{ order.status }}">{{ order.get_status_display }}</span></td>
+        <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
+        <td><a href="{% url 'dashboard:order_detail' order.pk %}" class="btn-sm">View</a></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="8" class="table-empty">No orders yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('orders-search-input');
+    const filterForm = document.getElementById('orders-filter-form');
+    if (!searchInput || !filterForm) return;
+
+    let searchTimer = null;
+
+    searchInput.addEventListener('input', function () {
+      const value = this.value.trim();
+      clearTimeout(searchTimer);
+
+      if (!value) {
+        filterForm.submit();
+        return;
+      }
+
+      searchTimer = setTimeout(function () {
+        filterForm.submit();
+      }, 250);
+    });
+  });
+</script>
+{% endblock %}

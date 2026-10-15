@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DZ Store Catalog{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="products-page">
+  <h1 class="page-header">DZ Store Catalog</h1>
+
+  <form method="get" class="filters-toolbar">
+    <input type="text" name="q" value="{{ q }}" placeholder="Search products..." class="search-input">
+    <div class="filter-group">
+      <select name="category" class="filter-select" onchange="this.form.submit()">
+        <option value="All">All Categories</option>
+        {% for cat in categories %}
+          <option value="{{ cat.name }}" {% if cat.name == selected_category %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+      <select name="sort" class="filter-select" onchange="this.form.submit()">
+        <option value="default" {% if sort == 'default' %}selected{% endif %}>Sort by: Featured</option>
+        <option value="low-high" {% if sort == 'low-high' %}selected{% endif %}>Price: Low to High (DZD)</option>
+        <option value="high-low" {% if sort == 'high-low' %}selected{% endif %}>Price: High to Low (DZD)</option>
+        <option value="rating" {% if sort == 'rating' %}selected{% endif %}>Highest Rated</option>
+      </select>
+    </div>
+  </form>
+
+  {% if grouped %}
+    {% for cat_name, cat_items in grouped.items %}
+      <div class="category-section" style="margin-bottom:3rem;">
+        <h2 style="font-size:1.5rem;font-weight:700;color:#0f172a;margin-bottom:1.25rem;border-bottom:2px solid #e2e8f0;padding-bottom:0.5rem;">{{ cat_name }}</h2>
+        <div class="products-grid">
+          {% for product in cat_items %}{% include 'store/_product_card.html' %}{% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  {% elif items %}
+    <div class="products-grid">
+      {% for product in items %}{% include 'store/_product_card.html' %}{% endfor %}
+    </div>
+  {% else %}
+    <div class="no-results"><p>No products found matching your criteria.</p></div>
+  {% endif %}
+</div>
+{% endblock %}
